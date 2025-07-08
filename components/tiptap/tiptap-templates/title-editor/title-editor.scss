@@ -1,0 +1,267 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+body {
+  --tt-toolbar-height: 44px;
+  --tt-theme-text: var(--tt-gray-light-900);
+
+  .dark & {
+    --tt-theme-text: var(--tt-gray-dark-900);
+  }
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--tt-theme-text);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  padding: 0;
+}
+
+html,
+body,
+#root,
+#app {
+  height: 100%;
+  background-color: var(--tt-bg-color);
+}
+
+/* 기본 블로그 에디터용 컨테이너 */
+.blog-editor-container {
+  position: relative;
+  min-height: 400px;
+  max-height: 600px;
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius-lg));
+  overflow: hidden;
+}
+
+.blog-editor-container .content-wrapper {
+  height: calc(100% - var(--tt-toolbar-height));
+  overflow-y: auto;
+  max-height: 500px;
+
+  &::-webkit-scrollbar {
+    display: block;
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--tt-scrollbar-color);
+    border-radius: 4px;
+  }
+
+  /* Firefox scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--tt-scrollbar-color) transparent;
+}
+
+/* 전체화면 에디터용 컨테이너 */
+.fullscreen-editor-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.fullscreen-editor-container .content-wrapper {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    display: block;
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--tt-scrollbar-color);
+    border-radius: 4px;
+  }
+
+  /* Firefox scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--tt-scrollbar-color) transparent;
+}
+
+.tiptap.ProseMirror {
+  font-family: "DM Sans", sans-serif;
+}
+
+.content-wrapper {
+  height: calc(100% - var(--tt-toolbar-height));
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: block;
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--tt-scrollbar-color);
+    border-radius: 4px;
+  }
+
+  /* Firefox scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--tt-scrollbar-color) transparent;
+}
+
+.blog-post-editor-content {
+  width: 100%;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.blog-post-editor-content .tiptap.ProseMirror {
+  width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.blog-editor-container .blog-post-editor-content .tiptap.ProseMirror {
+  min-height: 350px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.fullscreen-editor-container .blog-post-editor-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.fullscreen-editor-container .blog-post-editor-content .tiptap.ProseMirror {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.fullscreen-editor-container
+  .blog-post-editor-content
+  .tiptap.ProseMirror:focus {
+  outline: none;
+  border: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .blog-post-editor-content .tiptap.ProseMirror {
+    padding: 1rem 1rem;
+  }
+
+  .fullscreen-editor-container .blog-post-editor-content .tiptap.ProseMirror {
+    padding: 1rem 1rem;
+  }
+
+  .fullscreen-editor-container .blog-post-editor-content {
+    padding-bottom: 100px;
+  }
+}
+
+.blog-post-editor-content .tiptap.ProseMirror {
+  outline: none;
+}
+
+.blog-editor-container .blog-post-editor-content .tiptap.ProseMirror {
+  border: 1px solid hsl(var(--border));
+}
+
+.fullscreen-editor-container .blog-post-editor-content .tiptap.ProseMirror {
+  border: none;
+}
+
+.fullscreen-editor-container .blog-post-editor-content {
+  overflow: auto;
+}
+
+/* 툴바를 상단에 고정 */
+.fullscreen-editor-container .tiptap-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--tt-bg-color);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* 제목 입력 영역 스타일 */
+.title-input-container {
+  width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* title-editor-content 기본 스타일 */
+.title-editor-content .tiptap.ProseMirror {
+  width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  outline: none;
+}
+
+.fullscreen-editor-container .title-editor-content .tiptap.ProseMirror {
+  flex: 1;
+  min-height: 500px;
+  overflow-y: auto;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+@media screen and (max-width: 1024px) {
+  .fullscreen-editor-container .title-input-container,
+  .fullscreen-editor-container .title-editor-content .tiptap.ProseMirror {
+    max-width: 100%;
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .title-input-container,
+  .title-editor-content .tiptap.ProseMirror {
+    padding: 1rem 1rem;
+  }
+
+  .blog-editor-container .title-editor-content .tiptap.ProseMirror {
+    padding: 1rem;
+  }
+
+  .fullscreen-editor-container .title-input-container,
+  .fullscreen-editor-container .title-editor-content .tiptap.ProseMirror {
+    padding: 1.5rem 1rem;
+  }
+
+  .fullscreen-editor-container .title-editor-content .tiptap.ProseMirror {
+    min-height: 100vh;
+  }
+}
