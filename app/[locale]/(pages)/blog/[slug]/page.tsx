@@ -72,8 +72,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("ko-KR", {
+  const formatDate = (dateString: string, locale: string) => {
+    return new Date(dateString).toLocaleDateString(locale, {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -145,7 +145,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 dateTime={post.published_at || post.created_at}
                 className="text-lg"
               >
-                {formatDate(post.published_at || post.created_at)}
+                {formatDate(post.published_at || post.created_at, resolvedParams.locale)}
               </time>
             </div>
           </div>

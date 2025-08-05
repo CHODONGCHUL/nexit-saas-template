@@ -23,7 +23,7 @@ import {
 import { Post } from "@/types/postType";
 import Link from "next/link";
 
-export const columns: ColumnDef<Post>[] = [
+export const createColumns = (locale: string): ColumnDef<Post>[] => [
   {
     accessorKey: "title",
     header: ({ column }) => {
@@ -119,7 +119,7 @@ export const columns: ColumnDef<Post>[] = [
       const date = new Date(row.getValue("created_at"));
       return (
         <div className="flex flex-col gap-1">
-          <div className="text-sm">{date.toLocaleDateString("ko-KR")}</div>
+          <div className="text-sm">{date.toLocaleDateString(locale)}</div>
           <div className="text-xs text-muted-foreground">
             {Math.floor((Date.now() - date.getTime()) / (1000 * 60 * 60 * 24))}
             일 전
@@ -146,7 +146,7 @@ export const columns: ColumnDef<Post>[] = [
       const date = new Date(row.getValue("updated_at"));
       return (
         <div className="flex flex-col gap-1">
-          <div className="text-sm">{date.toLocaleDateString("ko-KR")}</div>
+          <div className="text-sm">{date.toLocaleDateString(locale)}</div>
           <div className="text-xs text-muted-foreground">
             {Math.floor((Date.now() - date.getTime()) / (1000 * 60 * 60 * 24))}
             일 전
@@ -210,3 +210,6 @@ export const columns: ColumnDef<Post>[] = [
     },
   },
 ];
+
+// 기본 columns (하위 호환성을 위해)
+export const columns = createColumns("ko-KR");

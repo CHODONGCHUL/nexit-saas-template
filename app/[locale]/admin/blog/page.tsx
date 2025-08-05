@@ -19,10 +19,12 @@ import { Post } from "@/types/postType";
 import { useGetPosts, useCreatePost } from "@/hooks/post-hook";
 import Link from "next/link";
 import { DataTable } from "@/components/ui/data-table";
-import { columns } from "./columns";
+import { createColumns } from "./columns";
+import { useLocale } from "next-intl";
 
 export default function AdminBlogManagement() {
   const router = useRouter();
+  const locale = useLocale();
   const [statusFilter, setStatusFilter] = useState<
     "published" | "draft" | "all"
   >("all");
@@ -222,7 +224,7 @@ export default function AdminBlogManagement() {
         <CardContent className="p-0">
           {posts && posts.length > 0 ? (
             <DataTable
-              columns={columns}
+              columns={createColumns(locale)}
               data={posts}
               searchKey="title"
               searchPlaceholder="포스트 제목으로 검색..."

@@ -7,12 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useLocale } from "next-intl";
 
 interface AccountInfoCardProps {
   user: any;
 }
 
 export default function AccountInfoCard({ user }: AccountInfoCardProps) {
+  const locale = useLocale();
   if (!user) return null;
 
   return (
@@ -29,7 +31,7 @@ export default function AccountInfoCard({ user }: AccountInfoCardProps) {
             </span>
             <span className="font-mono">
               {user.created_at
-                ? new Date(user.created_at).toLocaleDateString("ko-KR", {
+                ? new Date(user.created_at).toLocaleDateString(locale, {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
