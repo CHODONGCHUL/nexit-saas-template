@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
+import { useLocale } from "next-intl";
 
 const mainVariant = {
   initial: {
@@ -32,6 +33,7 @@ export const FileUpload = ({
 }) => {
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const locale = useLocale();
 
   const handleFileChange = (newFiles: File[]) => {
     setFiles((prevFiles) => [...prevFiles, ...newFiles]);
@@ -121,7 +123,7 @@ export const FileUpload = ({
                       layout
                     >
                       modified{" "}
-                      {new Date(file.lastModified).toLocaleDateString()}
+                      {new Date(file.lastModified).toLocaleDateString(locale)}
                     </motion.p>
                   </div>
                 </motion.div>

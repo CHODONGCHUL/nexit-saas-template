@@ -21,6 +21,7 @@ import { CreditCard, Calendar, Settings, Crown, Shield } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Link from "next/link";
 import { useState } from "react";
+import { useLocale } from "next-intl";
 
 export default function SubscriptionPage() {
   const { data: user, isLoading } = useCurrentUser();
@@ -28,6 +29,7 @@ export default function SubscriptionPage() {
     useUserSubscription(user?.id);
   const { data: profile } = useCurrentUserProfile();
   const [isLoadingPortal, setIsLoadingPortal] = useState(false);
+  const locale = useLocale();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -60,7 +62,7 @@ export default function SubscriptionPage() {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("ko-KR", {
+    return new Date(dateString).toLocaleDateString(locale, {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -68,7 +70,7 @@ export default function SubscriptionPage() {
   };
 
   const formatAmount = (amount: number, currency: string) => {
-    return new Intl.NumberFormat("ko-KR", {
+    return new Intl.NumberFormat(locale, {
       style: "currency",
       currency: currency === "KRW" ? "KRW" : "USD",
     }).format(amount / 100);

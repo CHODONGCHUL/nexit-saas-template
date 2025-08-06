@@ -16,9 +16,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useGetPosts } from "@/hooks/post-hook";
+import { useLocale } from "next-intl";
 
 export default function AdminDashboard() {
   const { data: posts } = useGetPosts("all");
+  const locale = useLocale();
 
   // 통계 계산
   const totalPosts = posts?.length || 0;
@@ -108,7 +110,7 @@ export default function AdminDashboard() {
                         new Date(p.updated_at || p.created_at).getTime()
                       )
                     )
-                  ).toLocaleDateString("ko-KR")
+                  ).toLocaleDateString(locale)
                 : "없음"}
             </div>
             <p className="text-xs text-muted-foreground">
@@ -142,7 +144,7 @@ export default function AdminDashboard() {
                       <p className="text-xs text-muted-foreground">
                         {new Date(
                           post.updated_at || post.created_at
-                        ).toLocaleDateString("ko-KR")}
+                        ).toLocaleDateString(locale)}
                       </p>
                     </div>
                     <Badge
