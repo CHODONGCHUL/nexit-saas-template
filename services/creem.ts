@@ -3,11 +3,6 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { CreemCheckoutOptions, UserSubscription } from "@/types/userType";
 
-/**
- * Creem API 서버 액션
- * https://api.creem.io를 직접 호출합니다.
- */
-
 const CREEM_API_BASE_URL = process.env.CREEM_BASE_URL;
 const CREEM_API_KEY = process.env.CREEM_API_KEY;
 
@@ -17,7 +12,7 @@ const CREEM_API_KEY = process.env.CREEM_API_KEY;
 function getHeaders() {
   return {
     "Content-Type": "application/json",
-    "x-api-key": CREEM_API_KEY || "",
+    "x-api-key": CREEM_API_KEY || "", // ✅ Bearer → x-api-key
   };
 }
 
@@ -31,12 +26,14 @@ export async function createCheckout(
     method: "POST",
     headers: getHeaders(),
     body: JSON.stringify({
-      product_id: options.productId,
+      product_id: options.productId, // ✅ snake_case
       units: options.units || 1,
       customer: {
         email: options.email,
       },
-      success_url: options.successUrl,
+      success_url:
+        options.successUrl ||
+        `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?success=true`, // ✅ snake_case
       ...(options.discountCode && { discount_code: options.discountCode }),
       metadata: {
         userId: options.userId,
@@ -45,17 +42,19 @@ export async function createCheckout(
     }),
   });
 
+  const data = await response.json();
+
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || "결제 세션 생성에 실패했습니다.");
+    console.error("❌ Creem API error full response:", data);
+    throw new Error(data.message || "결제 세션 생성에 실패했습니다.");
   }
 
-  const data = await response.json();
+  // ✅ Creem은 checkout_url 로 응답
   return { url: data.checkout_url };
 }
 
 /**
- * 사용자의 구독 정보 조회 (서버 클라이언트 사용)
+ * 사용자의 구독 정보 조회
  */
 export async function getUserSubscriptionServer(
   userId: string
@@ -76,7 +75,7 @@ export async function getUserSubscriptionServer(
 }
 
 /**
- * 사용자의 Creem Customer ID 업데이트 (서버 클라이언트 사용)
+ * 사용자의 Creem Customer ID 업데이트
  */
 export async function updateUserCustomerIdServer(
   userId: string,
@@ -98,7 +97,7 @@ export async function updateUserCustomerIdServer(
 }
 
 /**
- * 사용자의 구독 정보 업데이트 (서버 클라이언트 사용)
+ * 사용자의 구독 정보 업데이트
  */
 export async function updateUserSubscriptionServer(
   userId: string,
@@ -133,11 +132,12 @@ export async function getCustomerPortalUrl(
     }),
   });
 
+  const data = await response.json();
+
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || "고객 포털 URL 생성에 실패했습니다.");
+    console.error("❌ Creem Portal API error:", data);
+    throw new Error(data.message || "고객 포털 URL 생성에 실패했습니다.");
   }
 
-  const data = await response.json();
   return data.customer_portal_link;
 }
