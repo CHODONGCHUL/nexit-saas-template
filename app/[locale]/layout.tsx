@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import QueryClientProviders from "../query-client-providers";
 import { Toaster } from "@/components/ui/sonner";
@@ -28,11 +28,7 @@ export async function generateMetadata({
   };
 }
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  display: "swap",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -56,7 +52,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased`}>
+      <body className={`${inter.className} antialiased`}>
         <QueryClientProviders>
           <ThemeProvider
             attribute="class"
