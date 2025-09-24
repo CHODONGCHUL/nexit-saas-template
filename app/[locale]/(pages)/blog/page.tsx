@@ -1,64 +1,39 @@
 import React from "react";
 import { Metadata } from "next";
-import { createClient } from "@/lib/supabase/server";
-import { Post } from "@/types/postType";
-import { AdminActionButtons } from "@/components/blog/admin-action-buttons";
-import { BlogCard } from "@/components/blog/blog-card";
 
 export const metadata: Metadata = {
-  title: "블로그",
-  description: "최신 블로그 포스트를 확인해보세요.",
+  title: "앱 소개",
+  description: "AutoNavi 앱 소개 페이지",
 };
 
-// ISR on-demand 설정
-export const revalidate = false;
-export const dynamic = "force-static";
-
-export default async function BlogPage() {
-  const supabase = await createClient();
-
-  // 서버 컴포넌트에서 published 포스트만 fetch (ISR)
-  const { data: posts, error } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("status", "published")
-    .order("published_at", { ascending: false })
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    console.error("블로그 포스트 로드 실패:", error);
-    return <div>포스트를 불러오는데 실패했습니다.</div>;
-  }
-
+export default function AppIntroPage() {
   return (
-    <div className="container mx-auto py-8">
-      {/* 헤더 영역 */}
-      <div className="mb-8 flex justify-between items-center">
-        <div>
-          <h1 className="text-4xl font-bold mb-4">블로그</h1>
-          <p className="text-lg text-muted-foreground">
-            최신 소식과 유용한 정보를 확인해보세요.
-          </p>
-        </div>
-        {/* Admin 글쓰기 버튼 */}
-        <AdminActionButtons />
-      </div>
+    <div className="container mx-auto py-16 px-6">
+      <h1 className="text-4xl font-bold mb-6">AutoNavi 앱 소개</h1>
+      <p className="text-lg text-muted-foreground mb-8">
+        AutoNavi는 배달 라이더 전용 카카오맵 자동화 내비게이션 솔루션입니다.
+        카카오맵 실행 시 자동으로 경로 탐색, 안내 시작을 지원하여 배달 효율을 극대화합니다.
+      </p>
 
-      {/* Published 포스트 목록 (ISR) */}
-      {posts && posts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post) => (
-            <BlogCard key={post.id} post={post} />
-          ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="p-6 border rounded-lg shadow-sm">
+          <h2 className="text-2xl font-semibold mb-4">주요 기능</h2>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>카카오맵 자동 실행 및 경로 안내</li>
+            <li>송신/수신 모드 연동</li>
+            <li>배달 목적지 자동 감지 및 공유</li>
+            <li>안내 시작 자동화</li>
+          </ul>
         </div>
-      ) : (
-        <div className="text-center py-12">
-          <p className="text-lg text-muted-foreground mb-4">
-            아직 게시된 포스트가 없습니다.
+
+        <div className="p-6 border rounded-lg shadow-sm">
+          <h2 className="text-2xl font-semibold mb-4">지원 환경</h2>
+          <p>
+            Android 10 이상 기기에서 지원되며,  
+            Google 계정 로그인 기반으로 송신/수신 기기를 연동합니다.
           </p>
-          <AdminActionButtons />
         </div>
-      )}
+      </div>
     </div>
   );
 }

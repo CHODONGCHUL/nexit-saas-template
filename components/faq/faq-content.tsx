@@ -7,91 +7,92 @@ import {
 
 export default function FAQContent() {
   return (
-    <div className="container mx-auto py-12">
-      <h1 className="text-3xl font-bold mb-8">자주 묻는 질문 (FAQ)</h1>
-      <Accordion type="single" collapsible className="w-full">
+    <div className="mx-auto py-12 w-full max-w-4xl px-6 min-h-[70vh]">
+      {/* w-full max-w-4xl → 해상도 비율에 맞추되 가로 폭 고정 */}
+      {/* min-h-[70vh] → 최소 높이 확보해서 크기 변동 최소화 */}
+      <h1 className="text-3xl font-bold mb-8 text-center">
+        자주 묻는 질문 (FAQ)
+      </h1>
+      <Accordion type="single" collapsible className="w-full space-y-2">
+        {/* 1 */}
         <AccordionItem value="item-1">
-          <AccordionTrigger>NEXIT SaaS Template은 무엇인가요?</AccordionTrigger>
+          <AccordionTrigger>연동은 어떻게 하나요?</AccordionTrigger>
           <AccordionContent>
-            NEXIT SaaS Template은 한국 개발자를 위한 All-in-One SaaS
-            템플릿입니다. Supabase + Next.js + Creem.io를 기반으로 하여,
-            한국에서도 바로 서비스 운영이 가능하도록 설계되었습니다. 다국어
-            지원, 카카오 로그인, 국내 결제 시스템 등 한국 서비스에 필수적인
-            기능들이 모두 포함되어 있습니다.
+            사용할 기기에 각각 AutoNavi 앱을 설치한 후, 동일한 구글 계정으로
+            로그인하면 자동으로 연동됩니다. 메인폰과 서브폰이 연결되면 주소
+            송수신이 가능합니다.
           </AccordionContent>
         </AccordionItem>
 
+        {/* 2 */}
         <AccordionItem value="item-2">
-          <AccordionTrigger>어떤 기술 스택을 사용하나요?</AccordionTrigger>
+          <AccordionTrigger>주로 어떻게 사용하나요?</AccordionTrigger>
           <AccordionContent>
-            - Supabase: 데이터베이스, 인증, 스토리지 - Next.js + TypeScript:
-            프론트엔드 프레임워크 - Creem.io: 구독 결제 시스템 - Tailwind CSS:
-            UI 스타일링 - i18n: 다국어 지원
+            메인폰이나 태블릿에서 주소를 전송하면, 서브폰은 내비게이션 전용으로
+            자동 실행됩니다. 이렇게 하면 메인폰은 배달 콜 수락에 집중할 수 있고,
+            서브폰은 경로 안내만 전담하게 됩니다.
           </AccordionContent>
         </AccordionItem>
 
+        {/* 3 */}
         <AccordionItem value="item-3">
           <AccordionTrigger>
-            해외 SaaS 템플릿과 어떤 점이 다른가요?
+            메인폰/서브폰을 여러 개로 나눠서 쓸 수 있나요?
           </AccordionTrigger>
           <AccordionContent>
-            기존 해외 SaaS 템플릿들과 달리, 한국 서비스에 필수적인 기능들이 모두
-            구현되어 있습니다: - 한국어/영어 다국어 지원 - 카카오 로그인 연동 -
-            Creem.io를 통한 국내 결제 시스템 - 한국 서비스에 맞는 UI/UX
+            네. 예를 들어 <br />
+            - 메인폰1에서 배민 주소를 서브폰3에 전송하여 내비 안내 시작<br />
+            - 메인폰2에서 쿠팡 주소를 서브폰3에 전송하여 동일 기기로 안내<br />
+            이처럼 서브폰을 내비 전용으로 두고, 여러 메인폰에서 콜 수락만
+            담당하는 방식으로 운용할 수 있습니다.
           </AccordionContent>
         </AccordionItem>
 
+        {/* 4 */}
         <AccordionItem value="item-4">
-          <AccordionTrigger>누구를 위한 템플릿인가요?</AccordionTrigger>
+          <AccordionTrigger>로그인은 어떻게 하나요?</AccordionTrigger>
           <AccordionContent>
-            다음과 같은 분들에게 적합합니다: - 혼자서 빠르게 SaaS MVP를 만들고
-            싶은 개발자 - 해외 템플릿을 사용하다가 한국 서비스 연동에 어려움을
-            겪은 경험이 있는 분 - 프리랜서/사이드 프로젝트로 SaaS를 만들어
-            수익화하려는 분
+            별도의 회원가입 절차는 없습니다. <br />
+            구글 계정으로만 로그인할 수 있습니다.
           </AccordionContent>
         </AccordionItem>
 
+        {/* 5 */}
         <AccordionItem value="item-5">
-          <AccordionTrigger>
-            기술 지원이나 업데이트는 어떻게 이루어지나요?
-          </AccordionTrigger>
+          <AccordionTrigger>요금제는 어떻게 되나요?</AccordionTrigger>
           <AccordionContent>
-            GitHub 저장소를 통해 지속적인 업데이트와 버그 수정이 이루어지며,
-            이슈 트래커를 통해 기술 지원을 제공합니다. 또한 주요 업데이트나 보안
-            패치는 정기적으로 릴리즈됩니다.
+            AutoNavi는 월 구독제로 제공되며, 구독료는 매달 5달러(USD)입니다. <br />
+            월 1회성 사용은 6달러(USD)입니다.
           </AccordionContent>
         </AccordionItem>
 
+        {/* 6 */}
         <AccordionItem value="item-6">
-          <AccordionTrigger>설치와 설정은 어떻게 하나요?</AccordionTrigger>
+          <AccordionTrigger>환불이나 해지는 어떻게 하나요?</AccordionTrigger>
           <AccordionContent>
-            1. GitHub에서 템플릿을 클론하거나 다운로드합니다. 2. 필요한
-            환경변수를 .env 파일에 설정합니다. 3. npm install 또는 pnpm
-            install로 의존성을 설치합니다. 4. Supabase 프로젝트를 생성하고
-            데이터베이스를 설정합니다. 5. npm run dev로 개발 서버를 시작합니다.
-            자세한 설치 가이드는 README 파일을 참고해주세요.
+            구독 해지와 환불은 공식 홈페이지에서 가능합니다. 로그인 후 구독
+            관리 메뉴에서 해지를 진행하시면 됩니다.
           </AccordionContent>
         </AccordionItem>
 
+        {/* 7 */}
         <AccordionItem value="item-7">
-          <AccordionTrigger>상업적 이용이 가능한가요?</AccordionTrigger>
+          <AccordionTrigger>테스트는 어떻게 하나요?</AccordionTrigger>
           <AccordionContent>
-            네, NEXIT SaaS Template은 상업적 이용이 가능합니다. 개인
-            프로젝트부터 기업용 서비스까지 자유롭게 사용하실 수 있습니다. 다만,
-            템플릿 자체를 재판매하는 것은 제한될 수 있으니 라이센스를
-            확인해주세요.
+            연동할 기기들이 목록에 뜨면 연결이 완료된 것입니다. <br />
+            메인폰을 <b>송신 중</b>, 서브폰을 <b>수신 중</b>으로 설정한 뒤,
+            메인폰에서 내비게이션 주소를 입력하고 안내 시작을 눌러보세요.
+            서브폰이 자동으로 작동하면 정상적으로 연결된 것입니다.
           </AccordionContent>
         </AccordionItem>
 
+        {/* 8 */}
         <AccordionItem value="item-8">
-          <AccordionTrigger>
-            커스터마이징은 어느 정도까지 가능한가요?
-          </AccordionTrigger>
+          <AccordionTrigger>업데이트와 지원은 어떻게 이루어지나요?</AccordionTrigger>
           <AccordionContent>
-            템플릿은 완전히 오픈소스이므로 모든 부분을 자유롭게 커스터마이징할
-            수 있습니다: - UI/UX 디자인 변경 - 기능 추가 및 제거 - 데이터베이스
-            스키마 수정 - 결제 시스템 변경 - 인증 방식 추가 모든 코드가 공개되어
-            있어 필요에 따라 자유롭게 수정하실 수 있습니다.
+            AutoNavi는 지속적으로 기능 개선과 업데이트를 구글 플레이스토어로
+            제공합니다. 문제가 발생하거나 추가 문의사항이 있으면 카카오톡 또는
+            유선 연락을 통해 도움을 받으실 수 있습니다.
           </AccordionContent>
         </AccordionItem>
       </Accordion>

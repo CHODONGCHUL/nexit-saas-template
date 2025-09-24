@@ -10,6 +10,13 @@ export function InstagramButton({
   url = "https://www.instagram.com/",
   className,
 }: InstagramButtonProps) {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (url === "#") {
+      e.preventDefault();
+      alert("인스타그램은 준비중입니다!");
+    }
+  };
+
   return (
     <Button
       variant="outline"
@@ -19,6 +26,7 @@ export function InstagramButton({
     >
       <a
         href={url}
+        onClick={handleClick}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Instagram"

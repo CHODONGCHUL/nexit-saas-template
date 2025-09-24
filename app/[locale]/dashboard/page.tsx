@@ -13,13 +13,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   User,
   Settings,
-  BarChart3,
   Crown,
   TrendingUp,
   CheckCircle,
   AlertCircle,
   Activity,
-  BookOpen,
   HelpCircle,
 } from "lucide-react";
 import Link from "next/link";
@@ -142,7 +140,6 @@ function ActivityStatsCard() {
     userProfile?.id
   );
 
-  // 간단한 사용 통계 (실제 구현에서는 데이터베이스에서 가져올 수 있음)
   const joinDate = userProfile?.created_at
     ? new Date(userProfile.created_at)
     : new Date();
@@ -171,18 +168,7 @@ function ActivityStatsCard() {
             <div className="text-xs text-muted-foreground">현재 플랜</div>
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <Link href="/dashboard/features">
-            <Button size="sm" className="w-full">
-              <BookOpen className="h-3 w-3 mr-1" />새 기능 둘러보기
-            </Button>
-          </Link>
-          <Link href="/dashboard/support">
-            <Button variant="outline" size="sm" className="w-full">
-              도움말 센터
-            </Button>
-          </Link>
-        </div>
+        {/* ✅ 고객지원 / 새로운 기능 버튼 제거 */}
       </CardContent>
     </Card>
   );
@@ -202,42 +188,19 @@ function QuickActionsCard() {
             계정 설정
           </Button>
         </Link>
-        <Link href="/dashboard/support">
-          <Button variant="outline" size="sm" className="w-full justify-start">
-            <BarChart3 className="h-3 w-3 mr-2" />
-            고객 지원
-          </Button>
-        </Link>
-        <Link href="/dashboard/features">
-          <Button variant="outline" size="sm" className="w-full justify-start">
-            <User className="h-3 w-3 mr-2" />
-            새로운 기능
-          </Button>
-        </Link>
+        {/* ✅ 고객지원 / 새로운 기능 버튼 삭제됨 */}
       </CardContent>
     </Card>
   );
 }
 
 function RecentActivityCard() {
-  // 일반 사용자용 업데이트 & 도움말 카드
+  // ✅ 고객지원 / 새로운 기능 항목 삭제
   const helpItems = [
     {
       title: "서비스 이용 가이드",
       description: "기본적인 서비스 사용법을 확인해보세요",
       href: "/dashboard/support",
-      icon: HelpCircle,
-    },
-    {
-      title: "새로운 기능 알아보기",
-      description: "최근 추가된 기능들을 살펴보세요",
-      href: "/dashboard/features",
-      icon: BookOpen,
-    },
-    {
-      title: "고객 지원",
-      description: "문의사항이 있으시면 언제든 연락해주세요",
-      href: "/dashboard/support/contact",
       icon: HelpCircle,
     },
   ];

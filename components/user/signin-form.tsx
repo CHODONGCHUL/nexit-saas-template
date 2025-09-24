@@ -32,6 +32,9 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import GoogleSigninButton from "./google-signin-button";
 
+// ✅ sonner 토스트
+import { toast } from "sonner";
+
 interface SigninFormProps {
   setOpen?: (open: boolean) => void;
 }
@@ -65,11 +68,22 @@ export default function SigninForm({ setOpen }: SigninFormProps) {
         router.push("/dashboard");
         router.refresh();
       },
-      onError: (error) => {
+      onError: () => {
         setLoginError("이메일 또는 비밀번호가 올바르지 않습니다.");
       },
     });
   }
+
+  // ✅ 비밀번호 찾기 안내 토스트 (확인 누르면 이동)
+  const handleForgotPasswordClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    toast.warning("⚠️ 안내: 비밀번호 찾기는 회원가입 고객만 해당됩니다.\nGoogle/Kakao 로그인 고객님은 각 서비스 홈페이지에서 변경해 주세요.", {
+      action: {
+        label: "확인",
+        onClick: () => router.push("/forgot-password"),
+      },
+    });
+  };
 
   return (
     <Card className={cn("w-[350px]", setOpen && "border-0 shadow-none")}>
@@ -120,12 +134,13 @@ export default function SigninForm({ setOpen }: SigninFormProps) {
           </form>
         </Form>
         <div className="flex justify-between mt-4 text-sm text-center">
-          <Link
-            href="/forgot-password"
+          <a
+            href="#"
+            onClick={handleForgotPasswordClick} // ✅ 토스트 실행 후 확인 시 이동
             className="text-muted-foreground hover:underline cursor-pointer"
           >
             비밀번호를 잊어버리셨나요?
-          </Link>
+          </a>
           <Link
             href="/sign-up"
             className="text-muted-foreground hover:underline cursor-pointer"

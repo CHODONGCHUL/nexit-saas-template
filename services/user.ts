@@ -10,12 +10,17 @@ import type {
 const supabase = createClient();
 
 /**
- * 현재 로그인된 유저 반환
+ * 현재 로그인된 유저 반환 (세션 없으면 null)
  */
 export async function getCurrentUser() {
   const { data, error } = await supabase.auth.getUser();
-  if (error) throw error;
-  return data.user;
+
+  if (error) {
+    console.warn("Supabase Auth Error:", error.message);
+    return null; // ✅ throw 대신 null 반환
+  }
+
+  return data?.user ?? null;
 }
 
 /**
@@ -23,7 +28,10 @@ export async function getCurrentUser() {
  */
 export async function getCurrentUserProfile() {
   const { data, error } = await supabase.auth.getUser();
-  if (error) throw error;
+  if (error) {
+    console.warn("Auth Error:", error.message);
+    return null;
+  }
   if (!data.user) return null;
 
   const { data: profile, error: profileError } = await supabase
@@ -32,7 +40,10 @@ export async function getCurrentUserProfile() {
     .eq("id", data.user.id)
     .single();
 
-  if (profileError) throw profileError;
+  if (profileError) {
+    console.warn("Profile fetch error:", profileError.message);
+    return null;
+  }
 
   return { ...data.user, profile };
 }
@@ -41,20 +52,21 @@ export async function getCurrentUserProfile() {
  * 유저 역할(role) 조회
  */
 export async function getUserRole() {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data.user) return null;
 
-  if (!user) throw new Error("User not found");
-
-  const { data, error } = await supabase
+  const { data: roleData, error: roleError } = await supabase
     .from("profiles")
     .select("role")
-    .eq("id", user.id)
+    .eq("id", data.user.id)
     .single();
 
-  if (error) throw error;
-  return data;
+  if (roleError) {
+    console.warn("Role fetch error:", roleError.message);
+    return null;
+  }
+
+  return roleData;
 }
 
 /**
@@ -142,40 +154,35 @@ export async function changePassword(password: string) {
  * 아바타 업로드
  */
 export async function uploadAvatar(file: File): Promise<AvatarUploadResult> {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data.user) throw new Error("User not authenticated");
 
-  if (!user) throw new Error("User not authenticated");
-
+  const user = data.user;
   const fileExt = file.name.split(".").pop();
   const fileName = `${user.id}/avatar.${fileExt}`;
 
-  const { data, error } = await supabase.storage
+  const { data: uploadData, error: uploadError } = await supabase.storage
     .from("avatars")
     .upload(fileName, file, {
       cacheControl: "3600",
       upsert: true,
     });
 
-  if (error) throw error;
+  if (uploadError) throw uploadError;
 
-  const {
-    data: { publicUrl },
-  } = supabase.storage.from("avatars").getPublicUrl(fileName);
+  const { data: publicData } = supabase.storage.from("avatars").getPublicUrl(fileName);
 
-  return { url: publicUrl, path: data.path };
+  return { url: publicData.publicUrl, path: uploadData.path };
 }
 
 /**
  * 아바타 삭제
  */
 export async function deleteAvatar(path?: string) {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("User not authenticated");
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data.user) throw new Error("User not authenticated");
 
+  const user = data.user;
   const { data: files, error: listError } = await supabase.storage
     .from("avatars")
     .list(user.id);
@@ -190,12 +197,12 @@ export async function deleteAvatar(path?: string) {
     if (deleteError) throw deleteError;
   }
 
-  const { data, error } = await supabase.auth.updateUser({
+  const { data: updateData, error: updateError } = await supabase.auth.updateUser({
     data: { avatar_url: null },
   });
 
-  if (error) throw error;
-  return data;
+  if (updateError) throw updateError;
+  return updateData;
 }
 
 /**

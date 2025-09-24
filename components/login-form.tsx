@@ -30,22 +30,23 @@ export function LoginForm({
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const supabase = createClient();
     setIsLoading(true);
     setError(null);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
+
       if (error) throw error;
-      // 인증된 사용자를 위한 경로로 리다이렉트하세요. 사용자는 이미 활성 세션을 가지고 있습니다.
-      router.push("/protected");
-    } catch (error: unknown) {
-      setError(
-        error instanceof Error ? error.message : t("오류가 발생했습니다")
-      );
+      if (!data.session) throw new Error("세션 생성 실패");
+
+      // ✅ 실제 존재하는 경로로 이동 (protected → dashboard 등)
+      router.push("/dashboard");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : t("오류가 발생했습니다"));
     } finally {
       setIsLoading(false);
     }

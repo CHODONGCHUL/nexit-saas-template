@@ -9,6 +9,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing productId" }, { status: 400 });
     }
 
+    // Creem Checkout API 호출
     const response = await fetch(`${process.env.CREEM_BASE_URL}/v1/checkouts`, {
       method: "POST",
       headers: {
@@ -18,6 +19,7 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         product_id: productId,
         customer: { email },
+        // ✅ Creem은 success_url만 지원
         success_url:
           successUrl || `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?success=true`,
         metadata,
@@ -31,6 +33,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: data }, { status: response.status });
     }
 
+    // ✅ Creem은 checkout_url 반환
     return NextResponse.json({ url: data.checkout_url });
   } catch (error: any) {
     console.error("❌ Checkout API error:", error);

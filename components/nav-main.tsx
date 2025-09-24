@@ -61,10 +61,15 @@ export function NavMain({
               >
                 <SidebarMenuItem>
                   <CollapsibleTrigger asChild aria-controls={collapseId}>
-                    <SidebarMenuButton tooltip={item.title}>
-                      {item.icon && <item.icon />}
-                      <span>{item.title}</span>
-                      <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    <SidebarMenuButton
+                      tooltip={item.title}
+                      className="flex items-center justify-between"
+                    >
+                      <div className="flex items-center gap-2">
+                        {item.icon && <item.icon className="shrink-0" />}
+                        <span className="mr-2">{item.title}</span>
+                      </div>
+                      <ChevronRight className="shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                     </SidebarMenuButton>
                   </CollapsibleTrigger>
                   <CollapsibleContent id={collapseId}>
@@ -87,9 +92,13 @@ export function NavMain({
 
           return (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild tooltip={item.title}>
+              <SidebarMenuButton
+                asChild
+                tooltip={item.title}
+                className="flex items-center gap-2"
+              >
                 <a href={item.url}>
-                  {item.icon && <item.icon />}
+                  {item.icon && <item.icon className="shrink-0" />}
                   <span>{item.title}</span>
                 </a>
               </SidebarMenuButton>

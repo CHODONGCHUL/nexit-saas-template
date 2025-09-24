@@ -242,10 +242,6 @@ export default function SignupForm() {
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="text-sm text-gray-500 p-4 rounded-lg">
-                          <p>
-                            NEXIT 서비스 회원가입, 고지사항 전달 등을 위해
-                            아래와 같이 개인정보를 수집, 이용합니다.
-                          </p>
                           <ul className="list-disc list-inside mt-2 space-y-1">
                             <li>
                               <strong>수집 목적:</strong> 회원 식별 및 회원제
@@ -281,7 +277,7 @@ export default function SignupForm() {
                         <div className="space-y-1 leading-none">
                           <FormLabel>마케팅 정보 수신 동의</FormLabel>
                           <p className="text-sm text-gray-500">
-                            NEXIT의 새로운 소식과 혜택 정보를 받아보시겠습니까?
+                            AutoNavi의 새로운 소식과 혜택 정보를 받아보시겠습니까?
                           </p>
                         </div>
                       </FormItem>

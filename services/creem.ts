@@ -12,7 +12,7 @@ const CREEM_API_KEY = process.env.CREEM_API_KEY;
 function getHeaders() {
   return {
     "Content-Type": "application/json",
-    "x-api-key": CREEM_API_KEY || "", // ✅ Bearer → x-api-key
+    "x-api-key": CREEM_API_KEY || "",
   };
 }
 
@@ -26,17 +26,18 @@ export async function createCheckout(
     method: "POST",
     headers: getHeaders(),
     body: JSON.stringify({
-      product_id: options.productId, // ✅ snake_case
+      product_id: options.productId,
       units: options.units || 1,
       customer: {
         email: options.email,
       },
+      // ✅ cancel_url 제거 (Creem은 지원하지 않음)
       success_url:
         options.successUrl ||
-        `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?success=true`, // ✅ snake_case
+        `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?success=true`,
       ...(options.discountCode && { discount_code: options.discountCode }),
       metadata: {
-        userId: options.userId,
+        userId: options.userId, // ✅ 반드시 Supabase profiles.id와 동일해야 함
         ...options.metadata,
       },
     }),
@@ -49,7 +50,11 @@ export async function createCheckout(
     throw new Error(data.message || "결제 세션 생성에 실패했습니다.");
   }
 
-  // ✅ Creem은 checkout_url 로 응답
+  if (!data.checkout_url) {
+    console.error("❌ Creem API 응답에 checkout_url 없음:", data);
+    throw new Error("Creem API 응답에 checkout_url이 없습니다.");
+  }
+
   return { url: data.checkout_url };
 }
 
@@ -83,16 +88,23 @@ export async function updateUserCustomerIdServer(
 ): Promise<void> {
   const supabase = await createAdminClient();
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("profiles")
     .update({
       customer_id: customerId,
       updated_at: new Date().toISOString(),
     })
-    .eq("id", userId);
+    .eq("id", userId)
+    .select("id");
 
   if (error) {
     throw new Error(`Customer ID 업데이트에 실패했습니다: ${error.message}`);
+  }
+
+  if (!data || data.length === 0) {
+    console.error(`❌ Customer ID 업데이트 실패: userId=${userId} row 없음`);
+  } else {
+    console.log(`✅ Customer ID 업데이트 성공: userId=${userId}`);
   }
 }
 
@@ -105,16 +117,23 @@ export async function updateUserSubscriptionServer(
 ): Promise<void> {
   const supabase = await createAdminClient();
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("profiles")
     .update({
       subscription: subscriptionData,
       updated_at: new Date().toISOString(),
     })
-    .eq("id", userId);
+    .eq("id", userId)
+    .select("id");
 
   if (error) {
     throw new Error(`구독 정보 업데이트에 실패했습니다: ${error.message}`);
+  }
+
+  if (!data || data.length === 0) {
+    console.error(`❌ 구독 업데이트 실패: userId=${userId} row 없음`);
+  } else {
+    console.log(`✅ 구독 업데이트 성공: userId=${userId}`);
   }
 }
 

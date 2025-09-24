@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "sonner"; // ✅ 토스트 추가
 
 export function ForgotPasswordForm({
   className,
@@ -30,8 +31,12 @@ export function ForgotPasswordForm({
     setIsLoading(true);
     setError(null);
 
+    // ✅ 안내 토스트 먼저 출력
+    toast.warning(
+      "⚠️ 안내: 비밀번호 재설정은 이메일+비밀번호로 회원가입한 고객님만 가능합니다.\nGoogle/Kakao 로그인 고객님은 각 서비스 홈페이지에서 비밀번호 찾기를 진행해 주세요."
+    );
+
     try {
-      // The url which will be included in the email. This URL needs to be configured in your redirect URLs in the Supabase dashboard at https://supabase.com/dashboard/project/_/auth/url-configuration
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/auth/update-password`,
       });

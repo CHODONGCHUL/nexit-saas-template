@@ -1,12 +1,9 @@
 import { buttonVariants } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Command } from "@/components/ui/command";
 import {
-  ArrowRightIcon,
-  CalendarIcon,
-  Link2Icon,
-  SearchIcon,
-  WaypointsIcon,
+  MapPinIcon,
+  RouteIcon,
+  SmartphoneIcon,
+  RefreshCwIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -17,98 +14,107 @@ import {
   CardHeader,
   CardTitle,
 } from "./card";
-import { Input } from "./input";
-import { Label } from "./label";
 import { cn } from "@/lib/utils";
-import { Integrations } from "./integrations";
 
 export const CARDS = [
   {
-    Icon: Link2Icon,
-    name: "콘텐츠 자동화",
-    description:
-      "인공지능이 고품질 콘텐츠를 자동으로 생성해 블로그를 채워줍니다.",
-    href: "/dashboard?component=blogPosts",
-    cta: "더 알아보기",
+    Icon: MapPinIcon,
+    name: "배민 카카오맵 자동화",
+    description: (
+      <>
+        배민 주문 수락 → 카카오맵 길찾기 자동 실행.<br />
+        번거로운 클릭을 없애고 배달 효율을 극대화하세요.
+      </>
+    ),
+    href: "/dashboard?feature=baemin",
+    cta: "",
     className: "col-span-3 lg:col-span-1",
     background: (
-      <Card className="absolute top-10 left-10 origin-top rounded-none rounded-tl-md border border-border border-r-0 transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_0%,#000_100%)] group-hover:scale-105">
+      <Card className="absolute top-10 left-10 origin-top border border-border rounded-md p-4 
+        bg-gradient-to-br from-teal-50 to-white dark:from-teal-950 dark:to-black 
+        transition-all duration-300 group-hover:scale-105">
         <CardHeader>
-          <CardTitle>블로그 자동화</CardTitle>
-          <CardDescription>
-            키워드만 입력하면 AI가 최적화된 글을 작성합니다.
+          <CardTitle className="text-neutral-800 dark:text-white">
+            배민 자동화
+          </CardTitle>
+          <CardDescription className="text-neutral-600 dark:text-gray-300">
+            카카오맵 길찾기까지 원클릭 자동화
           </CardDescription>
         </CardHeader>
-        <CardContent className="-mt-4">
-          <Label>콘텐츠 작성 주제</Label>
-          <Input
-            type="text"
-            placeholder="키워드를 입력하세요..."
-            className="w-full focus-visible:ring-0 focus-visible:ring-transparent"
-          />
-        </CardContent>
       </Card>
     ),
   },
   {
-    Icon: SearchIcon,
-    name: "키워드 분석 도구",
-    description:
-      "트렌드 키워드 분석과 경쟁사 콘텐츠 연구로 최적의 SEO 콘텐츠를 생성하세요.",
-    href: "/keyword",
-    cta: "더 알아보기",
+    Icon: RouteIcon,
+    name: "쿠팡 티맵 자동화",
+    description: (
+      <>
+        쿠팡이츠 주문도 자동 인식 → 티맵 실행까지 빠르게 연결.<br />
+        경로 클릭 없이 바로 안내 시작!
+      </>
+    ),
+    href: "/dashboard?feature=coupang",
+    cta: "",
     className: "col-span-3 lg:col-span-2",
     background: (
-      <Command className="group-hover:-translate-x-10 absolute top-10 right-10 w-[70%] origin-to translate-x-0 border border-border p-2 transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)]">
-        <Input placeholder="키워드 분석하기..." />
-        <div className="mt-1 cursor-pointer">
-          <div className="rounded-md px-4 py-2 hover:bg-muted">
-            월간 검색량: 5,400회
-          </div>
-          <div className="rounded-md px-4 py-2 hover:bg-muted">
-            경쟁강도: 중간
-          </div>
-          <div className="rounded-md px-4 py-2 hover:bg-muted">
-            CPC: 2,300원
-          </div>
-          <div className="rounded-md px-4 py-2 hover:bg-muted">
-            연관 키워드: 12개
-          </div>
-          <div className="rounded-md px-4 py-2 hover:bg-muted">
-            트렌드 점수: 87점
-          </div>
-          <div className="rounded-md px-4 py-2 hover:bg-muted">
-            수익성 지수: 높음
-          </div>
-        </div>
-      </Command>
+      <div className="absolute top-10 right-10 w-[70%] rounded-md border border-border overflow-hidden 
+        transition-all duration-300 group-hover:scale-105">
+        <img
+          src="/tmap-demo.png"
+          alt="티맵 자동화 데모"
+          className="w-full h-48 object-contain"
+        />
+      </div>
     ),
   },
   {
-    Icon: WaypointsIcon,
-    name: "통합 관리 시스템",
-    description: "여러 블로그 플랫폼과 수익화 서비스를 한 곳에서 관리하세요.",
-    href: "/dashboard",
-    cta: "더 알아보기",
-    className: "col-span-3 lg:col-span-2 max-w-full overflow-hidden",
+    Icon: SmartphoneIcon,
+    name: "모든 배달앱 연동",
+    description: (
+      <>
+        카카오맵 · 카카오내비 · 티맵 완벽 지원.<br />
+        배민/쿠팡/일반대행 등 모든 앱과 호환.
+      </>
+    ),
+    href: "/dashboard?feature=integration",
+    cta: "",
+    className: "col-span-3 lg:col-span-2",
     background: (
-      <Integrations className="absolute top-4 right-2 h-[300px] w-[600px] border-none pl-28 transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105 md:pl-0" />
+      <div className="absolute top-4 right-2 h-[280px] w-[500px] rounded-lg overflow-hidden border border-border 
+        transition-all duration-300 group-hover:scale-105">
+        <img
+          src="/app-integration.png"
+          alt="배달앱 통합 연동"
+          className="w-full h-full object-contain"
+        />
+      </div>
     ),
   },
   {
-    Icon: CalendarIcon,
-    name: "자동 발행 일정",
-    description:
-      "최적의 시간에 자동으로 콘텐츠가 발행되도록 일정을 관리하세요.",
+    Icon: RefreshCwIcon,
+    name: "통합 관리 & 빠른 업데이트",
+    description: (
+      <>
+        하나의 시스템에서 모든 기기를 통합 관리.<br />
+        업계 최상 속도로 업데이트 & 24시간 빠른 응답 지원.
+      </>
+    ),
+    href: "/dashboard?feature=management",
+    cta: "",
     className: "col-span-3 lg:col-span-1",
-    href: "/dashboard?component=automation",
-    cta: "더 알아보기",
     background: (
-      <Calendar
-        mode="single"
-        selected={new Date(2022, 4, 11, 0, 0, 0)}
-        className="absolute top-10 right-0 origin-top rounded-md border border-border transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] group-hover:scale-105"
-      />
+      <Card className="absolute top-10 right-0 origin-top border border-border rounded-md p-4 
+        bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-950 dark:to-black 
+        transition-all duration-300 group-hover:scale-105">
+        <CardHeader>
+          <CardTitle className="text-neutral-800 dark:text-white">
+            통합 관리
+          </CardTitle>
+          <CardDescription className="text-neutral-600 dark:text-gray-300">
+            빠른 성장 · 고객만족도 최상
+          </CardDescription>
+        </CardHeader>
+      </Card>
     ),
   },
 ];
@@ -138,16 +144,12 @@ const BentoCard = ({
   background,
   Icon,
   description,
-  href,
-  cta,
 }: {
   name: string;
   className: string;
   background: ReactNode;
   Icon: any;
-  description: string;
-  href: string;
-  cta: string;
+  description: ReactNode;
 }) => (
   <div
     key={name}
@@ -159,31 +161,13 @@ const BentoCard = ({
   >
     <div>{background}</div>
     <div className="group-hover:-translate-y-10 pointer-events-none z-10 flex flex-col gap-1 p-6 transition-all duration-300">
-      <Icon className="h-12 w-12 origin-left text-neutral-400 dark:text-neutral-700 transition-all duration-300 ease-in-out group-hover:scale-75" />
-      <h3 className="font-semibold text-neutral-800 dark:text-neutral-300 text-xl">
+      <Icon className="h-12 w-12 origin-left text-primary transition-all duration-300 ease-in-out group-hover:scale-75" />
+      <h3 className="font-semibold text-neutral-800 dark:text-white text-xl">
         {name}
       </h3>
-      <p className="max-w-lg text-neutral-600 dark:text-neutral-400">
+      <p className="max-w-lg text-neutral-600 dark:text-gray-300">
         {description}
       </p>
-    </div>
-
-    <div
-      className={cn(
-        "absolute bottom-0 flex w-full translate-y-10 flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
-      )}
-    >
-      <Link
-        href={href}
-        className={buttonVariants({
-          size: "sm",
-          variant: "ghost",
-          className: "cursor-pointer",
-        })}
-      >
-        {cta}
-        <ArrowRightIcon className="ml-2 h-4 w-4" />
-      </Link>
     </div>
     <div className="pointer-events-none absolute inset-0 transition-all duration-300 group-hover:bg-white/[.03] group-hover:dark:bg-neutral-800/10" />
   </div>

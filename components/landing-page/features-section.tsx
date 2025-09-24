@@ -18,11 +18,10 @@ const FeaturesSection = () => {
             icon={<Sparkles className="h-4 w-4 text-primary" />}
           />
           <h2 className="!leading-[1.1] mt-6 text-center font-heading font-medium text-3xl text-foreground md:text-5xl lg:text-center">
-            한국형 SaaS 개발에 필요한 모든 것
+            배달의 새로운 기준, 카카오맵 완전 자동화
           </h2>
           <p className="mt-4 max-w-lg text-center text-lg text-muted-foreground lg:text-center">
-            인증부터 결제까지! 한국 개발자가 SaaS를 빠르게 런칭할 수 있도록
-            필요한 모든 기능을 미리 구현해놨습니다.
+            AutoNavi는 배달 라이더의 효율을 극대화하기 위해 송신자/수신자 자동 연동부터 UID 인증 기반 보안까지, 배달 환경에 최적화된<br /> 기능을 제공합니다.
           </p>
         </div>
       </AnimationContainer>
