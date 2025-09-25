@@ -213,29 +213,29 @@ export default function Navbar({ className }: { className?: string }) {
           <nav className="w-full max-w-sm flex flex-col items-center gap-8">
             <Link
               href="/dashboard"
-              className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition"
-              onClick={() => setTimeout(() => setMobileMenuOpen(false), 200)}
+              className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition block"
+              onClick={() => setMobileMenuOpen(false)}
             >
               내 대시보드
             </Link>
             <Link
               href="/about"
-              className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition"
-              onClick={() => setTimeout(() => setMobileMenuOpen(false), 200)}
+              className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition block"
+              onClick={() => setMobileMenuOpen(false)}
             >
               앱 소개
             </Link>
             <Link
               href="/pricing"
-              className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition"
-              onClick={() => setTimeout(() => setMobileMenuOpen(false), 200)}
+              className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition block"
+              onClick={() => setMobileMenuOpen(false)}
             >
               요금제
             </Link>
             <Link
               href="/contact"
-              className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition"
-              onClick={() => setTimeout(() => setMobileMenuOpen(false), 200)}
+              className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition block"
+              onClick={() => setMobileMenuOpen(false)}
             >
               문의하기
             </Link>
