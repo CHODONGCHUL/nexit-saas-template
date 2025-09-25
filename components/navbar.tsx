@@ -17,7 +17,7 @@ import {
 } from "./ui/dialog";
 import SigninForm from "./user/signin-form";
 import DropdownAvatar from "./user/dropdown-avatar";
-import AutoNaviLogo from "./autonavi-logo"; // ✅ 로고 컴포넌트
+import AutoNaviLogo from "./autonavi-logo";
 
 export default function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
@@ -74,7 +74,7 @@ export default function Navbar({ className }: { className?: string }) {
 
   return (
     <>
-      {/* ✅ 로그인 다이얼로그 */}
+      {/* 로그인 다이얼로그 */}
       <Dialog open={showSigninDialog} onOpenChange={setShowSigninDialog}>
         <DialogContent className="max-w-[374px] p-3 z-[70]">
           <DialogTitle className="sr-only">로그인</DialogTitle>
@@ -85,13 +85,13 @@ export default function Navbar({ className }: { className?: string }) {
         </DialogContent>
       </Dialog>
 
-      {/* ✅ 데스크탑 메뉴 */}
+      {/* 데스크탑 메뉴 */}
       <div
         className="fixed top-0 left-0 right-0 z-[60] flex-1 flex justify-center pt-6 md:flex hidden"
         style={navbarStyles}
       >
         <Menu setActive={setActive} className="flex items-center">
-          {/* ✅ 로고 클릭 시 홈("/") 이동 */}
+          {/* 로고 클릭 시 홈("/") 이동 */}
           <Link href="/" onMouseEnter={() => setActive(null)}>
             <AutoNaviLogo className="w-[280px] h-[100px] mr-10" />
           </Link>
@@ -126,7 +126,7 @@ export default function Navbar({ className }: { className?: string }) {
             문의하기
           </Link>
 
-          {/* ✅ 다크모드 토글 */}
+          {/* 다크모드 토글 */}
           {mounted && (
             <div
               className="flex items-center cursor-pointer ml-6"
@@ -143,7 +143,7 @@ export default function Navbar({ className }: { className?: string }) {
             </div>
           )}
 
-          {/* ✅ 로그인 / 유저 메뉴 */}
+          {/* 로그인 / 유저 메뉴 */}
           <div className="ml-6" onMouseEnter={() => setActive(null)}>
             {user ? (
               <div className="flex items-center gap-3 text-base">
@@ -167,7 +167,7 @@ export default function Navbar({ className }: { className?: string }) {
         </Menu>
       </div>
 
-      {/* ✅ 모바일 메뉴 (상단 바) */}
+      {/* 모바일 메뉴 (상단 바) */}
       <div
         className="fixed top-0 left-0 right-0 z-[60] flex md:hidden w-full bg-white/80 dark:bg-black/80 backdrop-blur-md px-4 py-3"
         style={navbarStyles}
@@ -202,11 +202,11 @@ export default function Navbar({ className }: { className?: string }) {
         </div>
       </div>
 
-      {/* ✅ 모바일 드롭다운 메뉴 */}
+      {/* 모바일 드롭다운 메뉴 */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-[70] flex flex-col items-center justify-center
-                     bg-white dark:bg-black transition-all duration-300"
+          className="fixed inset-0 z-[80] flex flex-col items-center justify-center
+                   bg-white dark:bg-black transition-all duration-300"
         >
           <nav className="flex flex-col items-center gap-8">
             <Link
