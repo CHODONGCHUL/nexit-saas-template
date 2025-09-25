@@ -169,7 +169,8 @@ export default function Navbar({ className }: { className?: string }) {
 
       {/* 모바일 메뉴 (상단 바) */}
       <div
-        className="fixed top-0 left-0 right-0 z-[60] flex md:hidden w-full bg-white/80 dark:bg-black/80 backdrop-blur-md px-4 py-3"
+        className={`fixed top-0 left-0 right-0 z-[60] flex md:hidden w-full bg-white/80 dark:bg-black/80 backdrop-blur-md px-4 py-3
+              ${mobileMenuOpen ? "pointer-events-none" : "pointer-events-auto"}`}
         style={navbarStyles}
       >
         <div className="flex items-center justify-between w-full">
@@ -205,36 +206,36 @@ export default function Navbar({ className }: { className?: string }) {
       {/* 모바일 드롭다운 메뉴 */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center
+          className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center
                    bg-white/95 dark:bg-black/90 backdrop-blur-md 
-                   transition-all duration-300"
+                   transition-all duration-300 pointer-events-auto`}
         >
           <nav className="w-full max-w-sm flex flex-col items-center gap-8">
             <Link
               href="/dashboard"
               className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => setTimeout(() => setMobileMenuOpen(false), 200)}
             >
               내 대시보드
             </Link>
             <Link
               href="/about"
               className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => setTimeout(() => setMobileMenuOpen(false), 200)}
             >
               앱 소개
             </Link>
             <Link
               href="/pricing"
               className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => setTimeout(() => setMobileMenuOpen(false), 200)}
             >
               요금제
             </Link>
             <Link
               href="/contact"
               className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => setTimeout(() => setMobileMenuOpen(false), 200)}
             >
               문의하기
             </Link>

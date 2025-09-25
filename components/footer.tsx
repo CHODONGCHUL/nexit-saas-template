@@ -63,7 +63,7 @@ export function Footer() {
           </div>
 
           <div className="text-xs text-muted-foreground text-center space-y-1 mb-4">
-            <p>상호명: 알고리즘</p>
+            <p>상호명: AutoNavi</p>
             <p>문의: heysandmole@gmail.com</p>
           </div>
 
