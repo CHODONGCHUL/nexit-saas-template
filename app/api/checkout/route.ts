@@ -14,14 +14,15 @@ export async function POST(req: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.CREEM_SECRET_KEY || "",
+        // ✅ Authorization 방식으로 교체
+        "Authorization": `Bearer ${process.env.CREEM_API_KEY}`,
       },
       body: JSON.stringify({
         product_id: productId,
         customer: { email },
-        // ✅ Creem은 success_url만 지원
         success_url:
-          successUrl || `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?success=true`,
+          successUrl ||
+          `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?success=true`,
         metadata,
       }),
     });
