@@ -17,7 +17,7 @@ import {
 } from "./ui/dialog";
 import SigninForm from "./user/signin-form";
 import DropdownAvatar from "./user/dropdown-avatar";
-import AutoNaviLogo from "./autonavi-logo"; // ✅ 올바른 경로
+import AutoNaviLogo from "./autonavi-logo"; // ✅ 로고 컴포넌트
 
 export default function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
@@ -51,13 +51,11 @@ export default function Navbar({ className }: { className?: string }) {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
       if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
       }
-
       lastScrollY.current = currentScrollY;
     };
 
@@ -137,7 +135,10 @@ export default function Navbar({ className }: { className?: string }) {
               {theme === "dark" ? (
                 <Sun size={22} className="text-neutral-300 hover:text-white" />
               ) : (
-                <Moon size={22} className="text-neutral-700 hover:text-neutral-900" />
+                <Moon
+                  size={22}
+                  className="text-neutral-700 hover:text-neutral-900"
+                />
               )}
             </div>
           )}
@@ -166,13 +167,12 @@ export default function Navbar({ className }: { className?: string }) {
         </Menu>
       </div>
 
-      {/* ✅ 모바일 메뉴 */}
+      {/* ✅ 모바일 메뉴 (상단 바) */}
       <div
         className="fixed top-0 left-0 right-0 z-[60] flex md:hidden w-full bg-white/80 dark:bg-black/80 backdrop-blur-md px-4 py-3"
         style={navbarStyles}
       >
         <div className="flex items-center justify-between w-full">
-          {/* ✅ 모바일 로고도 홈("/") 이동 */}
           <Link href="/">
             <AutoNaviLogo className="w-[160px] h-[60px]" />
           </Link>
@@ -185,7 +185,10 @@ export default function Navbar({ className }: { className?: string }) {
                 {theme === "dark" ? (
                   <Sun size={20} className="text-neutral-300 hover:text-white" />
                 ) : (
-                  <Moon size={20} className="text-neutral-700 hover:text-neutral-900" />
+                  <Moon
+                    size={20}
+                    className="text-neutral-700 hover:text-neutral-900"
+                  />
                 )}
               </div>
             )}
@@ -198,6 +201,53 @@ export default function Navbar({ className }: { className?: string }) {
           </div>
         </div>
       </div>
+
+      {/* ✅ 모바일 드롭다운 메뉴 */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[55] bg-white dark:bg-black flex flex-col items-center justify-center space-y-8">
+          <Link
+            href="/dashboard"
+            className="text-2xl font-semibold text-neutral-800 dark:text-neutral-200"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            내 대시보드
+          </Link>
+          <Link
+            href="/about"
+            className="text-2xl font-semibold text-neutral-800 dark:text-neutral-200"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            앱 소개
+          </Link>
+          <Link
+            href="/pricing"
+            className="text-2xl font-semibold text-neutral-800 dark:text-neutral-200"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            요금제
+          </Link>
+          <Link
+            href="/contact"
+            className="text-2xl font-semibold text-neutral-800 dark:text-neutral-200"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            문의하기
+          </Link>
+          {user ? (
+            <DropdownAvatar user={user} />
+          ) : (
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setShowSigninDialog(true);
+              }}
+              className="text-2xl font-semibold text-blue-600"
+            >
+              로그인
+            </button>
+          )}
+        </div>
+      )}
     </>
   );
 }
