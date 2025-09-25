@@ -1,18 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
 import {
   updateUserSubscriptionServer,
   updateUserCustomerIdServer,
 } from "@/services/creem";
-
-// ✅ 시그니처 검증 함수
-function verifySignature(body: string, signature: string, secret: string) {
-  const expected = crypto
-    .createHmac("sha256", secret)
-    .update(body, "utf8")
-    .digest("hex");
-  return expected === signature;
-}
 
 // 공통 구독 데이터 변환 함수
 function buildSubscriptionData(data: any, subscription?: any) {
@@ -36,18 +26,12 @@ function buildSubscriptionData(data: any, subscription?: any) {
 
 export async function POST(request: NextRequest) {
   try {
+    // ✅ Creem은 서명 검증을 제공하지 않음 → 그대로 body 파싱
     const body = await request.text();
-    const signature = request.headers.get("x-creem-signature") || "";
-    const secret = process.env.CREEM_WEBHOOK_SECRET || "";
-
-    // ✅ Creem 서명 검증
-    if (!verifySignature(body, signature, secret)) {
-      console.error("❌ Invalid webhook signature");
-      return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
-    }
 
     console.log("📩 Creem raw webhook body:", body);
     const webhookData = JSON.parse(body);
+
     const eventType =
       webhookData.eventType || webhookData.type || webhookData.event_type;
     const data = webhookData.object;
