@@ -77,7 +77,9 @@ export default function Navbar({ className }: { className?: string }) {
     <>
       {/* 로그인 다이얼로그 */}
       <Dialog open={showSigninDialog} onOpenChange={setShowSigninDialog}>
-        <DialogContent className="max-w-[374px] p-3 z-[70]">
+        <DialogContent 
+          className={`max-w-[374px] p-3 z-[100] ${!showSigninDialog ? "pointer-events-none opacity-0" : ""}`}
+        >
           <DialogTitle className="sr-only">로그인</DialogTitle>
           <DialogDescription className="sr-only">
             계정에 로그인하세요
@@ -88,7 +90,7 @@ export default function Navbar({ className }: { className?: string }) {
 
       {/* 데스크탑 메뉴 */}
       <div
-        className="fixed top-0 left-0 right-0 z-[60] flex-1 flex justify-center pt-6 md:flex hidden"
+        className="fixed top-0 left-0 right-0 z-[50] flex-1 flex justify-center pt-6 md:flex hidden"
         style={navbarStyles}
       >
         <Menu setActive={setActive} className="flex items-center">
@@ -170,8 +172,7 @@ export default function Navbar({ className }: { className?: string }) {
 
       {/* 모바일 메뉴 (상단 바) */}
       <div
-        className={`fixed top-0 left-0 right-0 z-[60] flex md:hidden w-full bg-white/80 dark:bg-black/80 backdrop-blur-md px-4 py-3
-              ${mobileMenuOpen ? "pointer-events-none" : "pointer-events-auto"}`}
+        className={`fixed top-0 left-0 right-0 z-[50] flex md:hidden w-full bg-white/80 dark:bg-black/80 backdrop-blur-md px-4 py-3 pointer-events-auto`}
         style={navbarStyles}
       >
         <div className="flex items-center justify-between w-full">
@@ -207,7 +208,7 @@ export default function Navbar({ className }: { className?: string }) {
       {/* 모바일 드롭다운 메뉴 */}
       {mobileMenuOpen && (
         <div
-          className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center
+          className={`fixed inset-0 z-[90] flex flex-col items-center justify-center
                    bg-white/95 dark:bg-black/90 backdrop-blur-md 
                    transition-all duration-300 pointer-events-auto`}
         >

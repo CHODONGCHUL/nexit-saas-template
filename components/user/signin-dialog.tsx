@@ -38,7 +38,11 @@ export default function SigninDialog(props: SigninDialogProps) {
           {text}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[374px] sm:max-w-[374px] p-3 z-60">
+      <DialogContent
+        className={`max-w-[374px] sm:max-w-[374px] p-3 z-[100] ${
+          !open ? "pointer-events-none opacity-0" : ""
+        }`}
+      >
         <DialogTitle className="sr-only">{text}</DialogTitle>
         <DialogDescription className="sr-only">
           계정에 로그인하세요
