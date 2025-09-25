@@ -70,6 +70,7 @@ export default function Navbar({ className }: { className?: string }) {
   const navbarStyles = {
     transform: isVisible ? "translateY(0)" : "translateY(-100%)",
     transition: "transform 0.3s ease-in-out",
+    pointerEvents: isVisible ? "auto" : "none", // 안 보일 땐 클릭 차단
   };
 
   return (
