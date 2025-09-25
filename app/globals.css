@@ -59,13 +59,11 @@ body[data-scroll-locked] {
   overflow: hidden !important;
 }
 
-/* ✅ 오버레이 완전 투명 + 배경 클릭 차단 */
-div[class*="overlay"],
-div[class*="sbui-modal-overlay"],
-div[class*="fixed"][class*="inset-0"] {
+/* ✅ Radix/Shadcn Dialog Overlay만 투명 처리 */
+div[data-state][class*="overlay"] {
   background: transparent !important;
   backdrop-filter: none !important;
-  pointer-events: none !important; /* 🔥 배경 클릭 차단 */
+  pointer-events: none !important;
 }
 
 /* ✅ 모달(로그인 박스)은 항상 최상위 + 클릭 가능 */
@@ -108,4 +106,9 @@ div[class*="sbui-auth"] {
 
 .card-description {
   @apply text-sm text-neutral-600 dark:text-neutral-300;
+}
+
+/* ✅ 대시보드 레이아웃, 카드, 버튼 클릭 보장 */
+.card, .download-btn, main {
+  pointer-events: auto !important;
 }
