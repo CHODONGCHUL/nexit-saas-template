@@ -205,10 +205,11 @@ export default function Navbar({ className }: { className?: string }) {
       {/* 모바일 드롭다운 메뉴 */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-[80] flex flex-col items-center justify-center
-                   bg-white dark:bg-black transition-all duration-300"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center
+                   bg-white/95 dark:bg-black/90 backdrop-blur-md 
+                   transition-all duration-300"
         >
-          <nav className="flex flex-col items-center gap-8">
+          <nav className="w-full max-w-sm flex flex-col items-center gap-8">
             <Link
               href="/dashboard"
               className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 transition"
