@@ -65,6 +65,13 @@ export default async function LocaleLayout({
       className="bg-background text-foreground"
       suppressHydrationWarning
     >
+      <head>
+        {/* ✅ 네이버 소유확인 메타태그 */}
+        <meta
+          name="naver-site-verification"
+          content="7dbd57120ace9e16decf763234fcee1e908f80be"
+        />
+      </head>
       <body className={`${inter.className} antialiased`}>
         <QueryClientProviders>
           <ThemeProvider
@@ -74,8 +81,7 @@ export default async function LocaleLayout({
             disableTransitionOnChange
           >
             <NextIntlClientProvider>{children}</NextIntlClientProvider>
-
-            {/* ✅ Toast를 전역에서 띄우도록 sonner Toaster 배치 */}
+            {/* ✅ Toast 전역 배치 */}
             <Toaster richColors position="top-center" />
           </ThemeProvider>
         </QueryClientProviders>
